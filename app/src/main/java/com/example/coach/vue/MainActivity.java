@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         if (controle.getAge() != null) {
             txtAge.setText((controle.getAge().toString()));
         }
-        if (controle.getAge() != null) {
+        if (controle.getSexe() != null) {
             // Mise en place du sexe.
             switch(controle.getSexe()) {
                 case 0:

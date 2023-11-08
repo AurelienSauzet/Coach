@@ -1,6 +1,7 @@
 package com.example.coach.modele;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Profil implements Serializable {
 
@@ -17,6 +18,7 @@ public class Profil implements Serializable {
     private int sexe;
     private float img = 0;
     private String message = "";
+    private Date dateMesure;
 
     /**
      * Constructeur valorisant directement le poids, la taille, l'âge et le sexe.
@@ -25,11 +27,12 @@ public class Profil implements Serializable {
      * @param age Âge
      * @param sexe 0 pour femme, 1 pour homme
      */
-    public Profil(int poids, int taille, int age, int sexe) {
+    public Profil(int poids, int taille, int age, int sexe, Date dateMesure) {
         this.poids = poids;
         this.taille = taille;
         this.age = age;
         this.sexe = sexe;
+        this.dateMesure = dateMesure;
     }
 
     // Getters
@@ -44,6 +47,9 @@ public class Profil implements Serializable {
     }
     public int getSexe() {
         return sexe;
+    }
+    public Date getDateMesure() {
+        return dateMesure;
     }
 
     /**
