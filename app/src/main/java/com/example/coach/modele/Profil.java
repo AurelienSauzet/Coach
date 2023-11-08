@@ -1,6 +1,8 @@
 package com.example.coach.modele;
 
-public class Profil {
+import java.io.Serializable;
+
+public class Profil implements Serializable {
 
     // Constantes
     private static final Integer minFemme = 15; // maigre si en dessous
@@ -18,9 +20,9 @@ public class Profil {
 
     /**
      * Constructeur valorisant directement le poids, la taille, l'âge et le sexe.
-     * @param poids en kg
-     * @param taille en cm
-     * @param age
+     * @param poids Poids en kg
+     * @param taille Taille en cm
+     * @param age Âge
      * @param sexe 0 pour femme, 1 pour homme
      */
     public Profil(int poids, int taille, int age, int sexe) {

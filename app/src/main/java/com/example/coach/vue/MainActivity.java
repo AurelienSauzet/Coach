@@ -15,17 +15,16 @@ import android.widget.Toast;
 import com.example.coach.R;
 import com.example.coach.controleur.Controle;
 
-/**
- *
- */
+
 public class MainActivity extends AppCompatActivity {
 
     // Propriétés
-    private Controle controle; // Appel du contrôle
+    private Controle controle; // Appel du contrôle.
     private EditText txtPoids;
     private EditText txtTaille;
     private EditText txtAge;
     private RadioButton rdHomme;
+    private RadioButton rdFemme;
     private TextView lblIMG;
     private ImageView imgSmiley;
     private Button btnCalc;
@@ -46,16 +45,47 @@ public class MainActivity extends AppCompatActivity {
         txtTaille = (EditText) findViewById(R.id.txtTaille);
         txtAge = (EditText) findViewById(R.id.txtAge);
         rdHomme = (RadioButton) findViewById(R.id.rdHomme);
+        rdFemme = (RadioButton) findViewById(R.id.rdFemme);
         imgSmiley = (ImageView) findViewById(R.id.imgSmiley);
         lblIMG = (TextView) findViewById(R.id.lblIMG);
         btnCalc = (Button) findViewById(R.id.btnCalc);
         // Instanciation du contrôle
-        controle = Controle.getInstance();
+        controle = Controle.getInstance(this);
         ecouteCalcul();
+        recupProfile();
     }
 
     /**
-     * Calcule l'IMG une fois que le bouton est appuyé
+     * Affiche dans les champs les informations récupérées du profil.
+     */
+    private void recupProfile() {
+        // Mise en place des 3 propriétés numériques.
+        if (controle.getPoids() != null) {
+            txtPoids.setText((controle.getPoids().toString()));
+        }
+        if (controle.getTaille() != null) {
+            txtTaille.setText((controle.getTaille().toString()));
+        }
+        if (controle.getAge() != null) {
+            txtAge.setText((controle.getAge().toString()));
+        }
+        if (controle.getAge() != null) {
+            // Mise en place du sexe.
+            switch(controle.getSexe()) {
+                case 0:
+                    rdFemme.setChecked(true);
+                    break;
+                case 1:
+                    rdHomme.setChecked(true);
+                    break;
+            }
+        }
+
+        btnCalc.performClick(); // Clic calculant l'IMG.
+    }
+
+    /**
+     * Calcule l'IMG une fois que le bouton est appuyé.
      */
     private void ecouteCalcul(){
         btnCalc.setOnClickListener(new Button.OnClickListener() {
@@ -89,9 +119,13 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Affiche le résultat du calcul de l'IMG avec le message et l'image correspondants.
+     * @param poids Poids en kg
+     * @param taille Taille en cm
+     * @param age Âge
+     * @param sexe
      */
     private void afficheResult(int poids, int taille, int age, int sexe) {
-        controle.creerProfil(poids, taille, age, sexe);
+        controle.creerProfil(poids, taille, age, sexe, this);
         String message = controle.getMessage();
         float img = controle.getImg();
         switch(message) {
